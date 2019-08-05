@@ -10,6 +10,7 @@ class BasicForm extends React.Component {
     this.state = {
       projectName: '',
       Applicant: '',
+      description: '',
       nameError: '',
       ApplicantError: ''
     };
@@ -27,6 +28,12 @@ class BasicForm extends React.Component {
     });
   };
 
+  handledescriptionChange = event => {
+    this.setState({ description: event.target.value }, () => {
+      this.validatedescription();
+    });
+  };
+
   validateName = () => {
     const { projectName } = this.state;
     this.setState({
@@ -39,16 +46,25 @@ class BasicForm extends React.Component {
     const { Applicant } = this.state;
     this.setState({
       ApplicantError:
-        Applicant.length > 3 ? null : 'Description must be longer than 50 characters'
+        Applicant.length > 3 ? null : 'Description must be longer than 10 characters'
     });
   }
 
+  validatedescription = () => {
+    const { description } = this.state;
+    this.setState({
+      descriptionError:
+        description.length > 50 ? null : 'Description must be longer than 50 characters'
+    });
+  } 
+
   handleSubmit = event => {
     event.preventDefault();
-    const { projectName, Applicant } = this.state;
+    const { projectName, Applicant, description } = this.state;
     alert(`Your state values: \n 
             name: ${projectName} \n 
-            Applicant: ${Applicant}`);
+            Applicant: ${Applicant} \n
+            description: ${description}`);
   };
   
 
@@ -82,6 +98,19 @@ class BasicForm extends React.Component {
           <div className='invalid-feedback'>{this.state.ApplicantError}</div>
         </div>
         <div className='form-group'>
+          <p>Short Project Description</p>
+          <textarea
+            name='description'
+            className={`form-control ${this.state.nameError ? 'is-invalid' : ''}`}
+            id='description'
+            placeholder='Enter Project Description'
+            value={this.state.description}
+            onChange={this.handledescriptionChange}
+            onBlur={this.validatedescription}
+          ></textarea>
+          <div className='invalid-feedback'>{this.state.nameError}</div>
+        </div>
+        <div className='form-group'>
         <p>Project Type</p>
     <select id="project-types" name="project-types">
       <option value="energy">Energy</option>
@@ -90,7 +119,9 @@ class BasicForm extends React.Component {
     </select>
         <button type='submit' className='btn btn-success btn-block' id="submit">
           Submit
-        </button></div>
+        </button>
+        </div>
+
       </form>
     );
   }

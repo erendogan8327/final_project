@@ -1,5 +1,4 @@
 import React from 'react';
-import BasicForm from './form.js';
 import Home from './Home';
 
 
@@ -9,7 +8,7 @@ class App extends React.Component {
     return(
       <React.Fragment>
       <Home />
-      <BasicForm />
+      
       </React.Fragment>
     );
   }
