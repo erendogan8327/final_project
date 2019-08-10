@@ -19,11 +19,12 @@ class BasicForm extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState !== this.state) {
-      this.writeUserData();
+    this.writeUserData();
+    
     }
   }
 
-  getUserData = () => {
+    getUserData = () => {
     let ref = firebase.database().ref("/");
     ref.on("value", snapshot => {
       const state = snapshot.val();
@@ -32,14 +33,12 @@ class BasicForm extends React.Component {
   };
 
   writeUserData = () => {
-    console.log(firebase)
-    console.log(this.state)
     firebase.database()
       .ref("/")
       .set(this.state)
-      .then((d) => console.log("hı", d))
-      .catch(console.error);
-    console.log("DATA SAVED");
+      if(document.getElementById('button') === true) {
+        alert("Project Saved");
+      }
   };
 
   handleNameChange = (event) => {
@@ -87,34 +86,7 @@ handleSubmit = (event) => {
               <h1 className="form-group">Smart City Projects</h1>
             </div>
           </div>
-          <div className="row">
-            <div className="col-xl-12">
-              {developers.map(developer => (
-                <div
-                  key={developer.projectName}
-                  className="card float-left"
-                  style={{ width: "18rem", marginRight: "1rem" }}
-                >
-                  <div className="card-body">
-                    <h5 className="card-title">{developer.projectName}</h5>
-                    <p className="card-text">{developer.Applicant}</p>
-                    <button
-                      onClick={() => this.removeData(developer)}
-                      className="btn btn-link"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => this.updateData(developer)}
-                      className="btn btn-link"
-                    >
-                      Edit
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+
           <div className="row">
             <div className="col-xl-12">
               <h1 className="form-group">Add new project here</h1>
@@ -122,7 +94,7 @@ handleSubmit = (event) => {
                 <div className="form-row">
                   <input type="hidden" ref="projectName" />
                   <div className="form-group col-md-6">
-                    <label>Name</label>
+                    <label>Project Name</label>
                     <input
                       type="text"
                       ref="projectName"
@@ -152,7 +124,7 @@ handleSubmit = (event) => {
                     />
                   </div>
                 </div>
-                <button onClick={this.writeUserData} type="submit" className="btn btn-primary">
+                <button id="button" name="button" value="submit" onClick={this.writeUserData} type="submit" className="btn btn-primary">
                   Save
                 </button>
               </form>
