@@ -1,24 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import BasicForm from './form';
+import Login from './login';
 import './App.css';
 
 
 function Example() {
     return (
-        ReactDOM.render(<BasicForm />, document.getElementById('root'))
+        ReactDOM.render(<Login />, document.getElementById('root'))
     );
   }
 
 class Home extends React.Component {
 
-
-
     render() {
         return (
             <div>
-              
+            <header id="header-site"></header>
             <Container>
                 <Row className="justify-content-md-center">
                <Col>

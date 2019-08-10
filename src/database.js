@@ -13,4 +13,4 @@ import firebase from 'firebase';
   // Initialize Firebase
   firebase.initializeApp(fire);
 
-  export default fire;
+  export default firebase;
